@@ -32,7 +32,7 @@ F = functs[(input('Chose Rastrigin or Rosenbrock (default): \n >>') or 'Rosenbro
 np.random.seed = 0
 no_dimensions = 2
 
-print(F)
+#print(F)
 
 random.seed(0)
 #no_particles = 20
@@ -51,13 +51,13 @@ particle_best_location = np.zeros((no_particles,no_dimensions))
 
 
 
-x = np.linspace(-interval,interval)#, num = no_particles)
-y = np.linspace(-interval,interval)#, num = no_particles)
+x = np.linspace(-interval,interval,200)#, num = no_particles)
+y = np.linspace(-interval,interval,200)#, num = no_particles)
 x, y = np.meshgrid(x, y)
-print("x: {} \ny: {}".format(x,y))
+#print("x: {} \ny: {}".format(x,y))
 
 z = np.array(F([x, y]))
-print("Z: {}".format(z))
+#print("Z: {}".format(z))
 
 for i in range (no_particles):
     for d in range (no_dimensions):
@@ -69,9 +69,9 @@ for i in range (no_particles):
 
 global_best = np.min(F(state))#[0],state[i][1])
 global_best_location = state[np.argmin(F(state))]
-print("glob: {}".format(global_best_location))
+#print("glob: {}".format(global_best_location))
 
-print("Velocities:\n{}".format(velocity))
+#print("Velocities:\n{}".format(velocity))
 
 
 fig = plt.figure()  
@@ -87,12 +87,12 @@ for k in range(max_iters):
         if fitness_value < particle_best_score[i]:
             particle_best_score[i] = fitness_value
             particle_best_location[i] = state[i]
-            print("New Particle best: {}\nNew Particle Best Location: {}".format(particle_best_score, particle_best_location))
+#            print("New Particle best: {}\nNew Particle Best Location: {}".format(particle_best_score, particle_best_location))
 
         if fitness_value < global_best:
             global_best = fitness_value
             global_best_location = state[i]
-            print("New global best: {}\nNew global Best Location: {}".format(global_best,global_best_location))
+#            print("New global best: {}\nNew global Best Location: {}".format(global_best,global_best_location))
         #if k % 20 == 0:
             #ax.scatter(state[i][0], state[i][1], zs=F(state[i]), zdir='z', c='green', s=100)
         print(i)
