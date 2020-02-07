@@ -95,7 +95,7 @@ for k in range(max_iters):
 #            print("New global best: {}\nNew global Best Location: {}".format(global_best,global_best_location))
         #if k % 20 == 0:
             #ax.scatter(state[i][0], state[i][1], zs=F(state[i]), zdir='z', c='green', s=100)
-        print(i)
+#        print(i)
 
             #print(state[i])
         w = ((w1 - w2)*(max_iters -k)/max_iters) + w2
@@ -104,8 +104,8 @@ for k in range(max_iters):
         #state[i] = state[i] + velocity[i]
         state[i] = np.clip((state[i] + velocity[i]),-interval,interval)
 #print("state[0]: {}\nstate[0][:]: {}\nstate[1]: {}\nstate[0][0]: {}\nstate[1][0]: {}".format(state[:],state[:][0], state[1], state[0][0], state[1][0]))
-ax.scatter((state[:,0]), (state[:,1]), zs=F(state[:].T), zdir='z', s=100)
-plt.pause(1)
+    ax.scatter((state[:,0]), (state[:,1]), zs=F(state[:].T), zdir='z', s=100)
+    plt.pause(1)
 print("Fit val:{}".format(fitness_value))
 print(particle_best_location[0])
 print(np.round(particle_best_location[0]))
