@@ -25,18 +25,18 @@ functs = {
 
 ######### Settings params
 #### Ask User for input ####
-no_particles = int(input("Number of particles - (default 20): \n >>") or 20) #20
-max_iters = int(input("Number of iterations - (default 100): \n >>") or 100) #1000
-F = functs[(input('Chose Paraboloid (0), Rastrigin (1), Rosenbrock (2), Easom (3) or Eggholder (4) - (default 0): \n >>') or '0')]
+no_particles = int(input("Number of particles - (default 20): \n>>") or 20) #20
+max_iters = int(input("Number of iterations - (default 100): \n>>") or 100) #1000
+F = functs[(input('Chose Paraboloid (0), Rastrigin (1), Rosenbrock (2), Easom (3) or Eggholder (4) - (default 0): \n>>') or '0')]
 trueMin = [0,0]
 if F.__name__ == 'Eggholder':
     interval = 600
     trueMin = [512, 404.2319]
 elif F.__name__ == 'Easom':
-    interval = int(input("Size of interval - (default 5): \n >>") or 5) #1000
+    interval = int(input("Size of interval - (default 5): \n>>") or 5) #1000
     trueMin = [np.pi, np.pi]
 else:
-    interval = int(input("Size of interval - (default 5): \n >>") or 5) #1000
+    interval = int(input("Size of interval - (default 5): \n>>") or 5) #1000
 xdim = bool(input("3D plots? (0 / 1) (default 0): \n>>") or 0)
 
 random.seed(0)
@@ -72,7 +72,7 @@ if xdim:
     surf = ax.plot_surface(x, y, z, rstride=1, cstride=1, cmap=cm.plasma, alpha = 0.3)
 else:
     ax = fig.subplots()
-    surf = ax.contourf(x, y, z, rstride=1, cstride=1, cmap=cm.plasma, alpha = 0.3)
+    surf = ax.contourf(x, y, z, cmap=cm.plasma, alpha = 0.3)
 plt.ion()
 plt.show()  
 
@@ -105,7 +105,7 @@ else:       #2d
     ax.scatter(0,0, facecolors='none', edgecolors='r', marker='D')
 #### End
 print("Fit val:{}".format(fitness_value))
-print(particle_best_location[0])
-print(np.round(particle_best_location[0]))
+print("PBest: \n{}".format(particle_best_location)) #particle_best_location[0])
+print('Rounded PBest: \n{}'.format(np.round(particle_best_location)))
 plt.show()
 
