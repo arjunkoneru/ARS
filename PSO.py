@@ -49,7 +49,7 @@ gd = 0
 if not (xdim):
     gd = bool(input('Compare to Gradient Descent? Yes (1), No (0)? - (default 0): \n>>') or 0)
 
-#test
+#test2
 
 random.seed(0)
 no_dimensions = 2
