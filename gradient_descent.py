@@ -19,8 +19,9 @@ def DerrivRosenbrock (x):
 
 interval=5
 
-learning_rate=0.0001
+learning_rate=0.0002 # After experiment, 0.0002 works good.
 state_gd = np.array([round(random.uniform(-interval,interval), 2),round(random.uniform(-interval,interval), 2)])
+#state_ga = [ 4.02656064 -2.254784  ]
 nr_iteration=100
 gd_history=[]
 
@@ -43,7 +44,10 @@ for i in range(nr_iteration):
     state_gd = state_gd - np.dot(learning_rate,fi)
     if i%10==0:
         print(state_gd)
-        ax.scatter((state_gd[0]), (state_gd[1]), s=5)
+        ax.scatter((state_gd[0]), (state_gd[1]), s=25)
         plt.pause(2)
         
-    plt.show()    
+ax.scatter((gd_history[-1][0][0]), (gd_history[-1][0][0]), facecolors='none', edgecolors='r', marker='D', s=50 )
+plt.show()
+
+print("After {} tierations, the minimus is {} at {}".format(nr_iteration, gd_history[-1][1], gd_history[-1][0]))
