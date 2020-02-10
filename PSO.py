@@ -85,7 +85,7 @@ global_best_location = state[np.argmin(F(state[:].T))]
 fig = plt.figure()  
 if xdim:
     ax = fig.gca(projection='3d')
-    surf = ax.plot_surface(x, y, z, rstride=1, cstride=1, cmap=cm.plasma, alpha = 0.3)
+    surf = ax.plot_surface(x, y, z, rstride=1, cstride=1, cmap=cm.plasma, alpha = 0.1)
 else:
     ax = fig.subplots()
     surf = ax.contourf(x, y, z, cmap=cm.plasma, alpha = 0.3)
@@ -114,17 +114,22 @@ for k in range(max_iters):
     w = ((w1 - w2)*(max_iters -k-1)/max_iters) + w2
     velocity = np.clip((w * velocity) + (a * random.uniform(0,1) * (particle_best_location - state)) + (b * random.uniform(0,1) * (global_best_location - state)),-2,2)
     state = np.clip((state + velocity),-interval,interval)
-    if ((k==0) or (k+1==max_iters) or (k==int((max_iters-1)/2))):
-        if xdim:
+    if xdim:
+        if ((k==0) or (k+1==max_iters) or (k==int((max_iters-1)/2))):
             ax.scatter((state[:,0]), (state[:,1]), zs=F(state[:].T), zdir='z', s=30)
-        else:
-            ax.scatter((state[:,0]), (state[:,1]), s=5)
-        plt.pause(1)
+    else:
+        ax.scatter((state[:,0]), (state[:,1]), s=5)
+    plt.pause(0.2)
 if xdim:    #3d
     print("True Min NYI in 3D")
+    ax.scatter((state[:,0]), (state[:,1]), zs=F(state[:].T), zdir='z', s=50, facecolors='aqua', edgecolors='aqua', marker='D', alpha = 0.7)
+    ax.scatter(trueMin[0], trueMin[1], zs=F((trueMin[0], trueMin[1],)), zdir='z', s=75, facecolors='red', edgecolors='yellow', marker='o', alpha = 1)
+
 #    ax.scatter(trueMin[0], trueMin[1], zs=F(trueMin), c='black')
 else:       #2d
-    ax.scatter(trueMin[0], trueMin[1], facecolors='none', edgecolors='r', marker='D')
+    ax.scatter((state[:,0]), (state[:,1]), s=50, facecolors='aqua', edgecolors='aqua', marker='D', alpha = 0.5)
+    ax.scatter(trueMin[0], trueMin[1], facecolors='red', edgecolors='yellow', marker='o', s = 100)
+
 #### End
 print("Fit val:{}".format(fitness_value))
 #print("PBest: \n{}".format(particle_best_location)) #particle_best_location[0])
