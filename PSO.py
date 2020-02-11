@@ -3,20 +3,19 @@
 Created on Thu Feb  6 19:55:15 2020
 """
 #### Imports Libraries ####
+from matplotlib import cm, ticker
 import matplotlib.pyplot as plt 
 import matplotlib.colors as colors
 from matplotlib.colors import ListedColormap, LogNorm
-
-import numpy as np
-from matplotlib import cm, ticker
+from matplotlib.axes._axes import _log as matplotlib_axes_logger
+from mpl_toolkits.mplot3d import Axes3D # <--- This is important for 3d plotting 
 import seaborn as sns
+import numpy as np
 import random
 import decimal
-from mpl_toolkits.mplot3d import Axes3D # <--- This is important for 3d plotting 
 from functions import Rosenbrock, dRosenbrock, Rastrigin, dRastrigin, Paraboloid, dParaboloid, Easom, Eggholder, dParaboloid
 import time
 from PSO_Gradient_Descent import Gradient_Descent
-from matplotlib.axes._axes import _log as matplotlib_axes_logger
 from tqdm import tqdm
 
 
@@ -104,7 +103,7 @@ global_best_location = state[np.argmin(F(state[:].T))]
 fig = plt.figure()  
 if xdim:
     ax = fig.gca(projection='3d')
-    surf = ax.plot_surface(x, y, z, rstride=1, cstride=1, cmap=cm.magma, alpha = 0.6)
+    surf = ax.plot_surface(x, y, z, rstride=1, cstride=1, cmap=cm.plasma, alpha = 0.1)
 else:
     ax = fig.subplots()
     surf = ax.contourf(x, y, z, cmap=cm.plasma, alpha = 1)
@@ -118,12 +117,12 @@ ax.set_ylim(-interval,interval)
 #### PSO ####
 ##### 3-D visualization ######
 if xdim:
-    tmpPoints = ax.scatter((state[:,0]), (state[:,1]), zs=F(state[:].T), zdir='z', s=15)
+    tmpPoints = ax.scatter((state[:,0]), (state[:,1]), zs=F(state[:].T)+10, zdir='z', s=15, c = 'lime')
 else:
-    tmpPoints = ax.scatter((state[:,0]), (state[:,1]), s=15, c = 'white')
+    tmpPoints = ax.scatter((state[:,0]), (state[:,1]), s=15, c = 'lime')
 plt.pause(1)
 if not hist: tmpPoints.remove()
-clr = 'white'
+clr = 'lime'
 for k in tqdm(range(max_iters)):
     if hist : clr = ([(k*(1/max_iters)),0,0])#(k*(1/max_iters)),(k*(1/max_iters))])
 #    clr = ([(k*(1/max_iters)),(k*(1/max_iters)),(k*(1/max_iters))]) if hist == True else 'white'
@@ -142,7 +141,7 @@ for k in tqdm(range(max_iters)):
     state = np.clip((state + velocity),-interval,interval)
     if xdim:
 #        if (hist and ((k==0) or (k+1==max_iters) or (k==int((max_iters-1)/2)))):
-        tmpPoints = ax.scatter((state[:,0]), (state[:,1]), zs=F(state[:].T), zdir='z', s=15)#, c = clr)#c='white')
+        tmpPoints = ax.scatter((state[:,0]), (state[:,1]), zs=F(state[:].T), zdir='z', s=15, c = clr)#, c = clr)#c='white')
     else:
         tmpPoints = ax.scatter((state[:,0]), (state[:,1]), s=15, c = clr)#c='white')
     plt.pause(0.15)
