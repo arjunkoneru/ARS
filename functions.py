@@ -6,7 +6,7 @@ import numpy as np
 
 
 def Rosenbrock(x):
-    return (x[0]**2 + 100 * (x[1] - x[0]**2)**2)
+    return ((0 - x[0])**2 + 100 * (x[1] - x[0]**2)**2)
 
 def dRosenbrock (x):
     dx = 2*x[0] - 400*x[0]*(x[1] - (x[0]**2))
